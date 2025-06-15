@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="game.css">
+    <script src="script.js" defer></script>
+    <title>Jeopardy Game</title>
+</head>
+
+<body>
+
+    <main id="app">
+        <div id="header">
+            <h2 class="txt-shadow accent-font">Random</h2>
+            <button id="final-jeopardy-btn">Final Jeopardy</button>
+        </div>
+
+        <div id="game-board"></div>
+
+        <aside id="contestent-points">
+            <div id="current-player" class="sub-section">
+                <p>Current Player:</p>
+                <div id="current-p-wrapper"></div>
+            </div>
+
+            <div id="players-container">
+                <!-- <div class="player-container">
+                    <div class="player-name-wrapper accent-font">${players[i].name}</div>
+                    <span class="player-score accent-font">${players[i].score}</span>
+                    <span class="material-symbols-rounded delete-player" data-player-name="${players[i].name}">delete</span>
+                </div> -->
+            </div>
+        </aside>
+    </main>
+
+    <section id="question-answer">
+        <div id="question-header">
+            <h2 id="q-category" class="accent-font category"></h2>
+            <h2 id="q-difficulty" class="price"></h2>
+            <div id="timer-wrapper">
+                <div id="timer-bar"></div>
+            </div>
+        </div>
+        <div id="question-wrapper">
+            <p id="question-txt"></p>
+            <button id="show-answer-btn">See Answer &rightarrow;</button>
+        </div>
+        <div id="answer-wrapper">
+            <p id="answer-txt"></p>
+            <button id="return-btn">Game Board &rightarrow;</button>
+        </div>
+
+        <div class="sub-section" id="time-msg">
+            <h2 class="accent-font">Time out</h2>
+        </div>
+    </section>
+
+    <section id="end-screen">
+        <h2 id="winner-header"></h2>
+        <div id="winner-container"></div>
+    </section>
+
+</body>
+
+</html>

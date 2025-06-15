@@ -1,0 +1,407 @@
+/* Buttons */
+
+button {
+    font-weight: 700;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    padding: clamp(.5rem, 1.5vw, .7rem) 2rem;
+    border-radius: 100vmax;
+    border: 3px solid var(--yellow);
+    background-color: transparent;
+    color: var(--yellow);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-5px);
+    background-color: var(--yellow);
+    box-shadow: 0 5px 0 var(--hover-yellow);
+    filter: none;
+    color: darkblue;
+}
+
+button:active {
+    transform: none;
+    box-shadow: none;
+}
+
+/* sub section style */
+
+.sub-section {
+    box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
+                inset -1px -1px 2px rgb(0 0 0 /.2),
+                2px 2px 5px rgb(0 0 0 / .2);
+    background-color: rgb(255 255 255 / .1);
+    border-radius: 1.5rem;
+    padding-block: .5rem;
+}
+
+
+/* ===== Main Game Area ===== */
+
+#app {
+    --gap: 1.5rem;
+    position: relative;
+    padding: 2.5rem;
+    background-image: radial-gradient(blue, darkblue);
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+}
+
+#app > * {
+    padding: 1.5rem;
+    backdrop-filter: brightness(0.8) blur(5px);
+    border-radius: 1rem;
+    box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
+                inset -1px -1px 2px rgb(0 0 0 /.2),
+                2px 2px 5px rgb(0 0 0 / .2);
+}
+
+/* ===== Header ===== */
+
+#app #header {
+    height: fit-content;
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#app #header h2 {
+    color: var(--yellow);
+    font-weight: 800;
+    font-size: clamp(2rem, 7vw, 4rem);
+    text-transform: uppercase;
+    view-transition-name: topic;
+}
+
+/* ===== Game Board ===== */
+
+#game-board {
+    flex: 1 1 70%;
+    display: flex;
+    gap: 1rem;
+}
+
+.category-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: .5rem;
+}
+
+.category-header {
+    background-color: rgb(0 0 0 / .15);
+    padding-inline: 1rem;
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, 3vw, 2.3rem);
+    font-weight: 500;
+    text-align: center;
+    display: grid;
+    place-items: center;
+    flex: 1;
+    max-height: 8rem;
+    flex-wrap: balance;
+}
+
+.prblm-btn {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    color: var(--yellow);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: rgb(255 255 255 /.2);
+        transform: translateY(-4px);
+    }
+
+    &:active {
+        background-color: rgb(255 255 255 / .1);
+        transform: none;
+    }
+}
+
+.prblm-btn.clicked {visibility: hidden}
+
+/* ===== Player Points Aside ===== */
+
+#contestent-points {
+    flex: 1 1 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Current Player */
+
+#current-player {text-align: center}
+
+#current-player p {font-size: clamp(1.2rem, 2vw, 1.5rem)}
+
+#current-p-wrapper {
+    font-weight: 600;
+    color: var(--yellow);
+    font-size: clamp(2rem, 3vw, 2.5rem);
+}
+
+/* Player Points */
+
+#players-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    flex: 1;
+}
+
+.player-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3rem;
+}
+
+.player-name-wrapper {
+    font-weight: 500;
+    font-size: 1.7rem;
+    margin-right: auto;
+}
+
+.player-score {
+    text-align: end;
+    color: var(--yellow);
+    font-weight: 500;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.player-score.highest-score {
+    color: #32cd32;
+    font-weight: 700;
+}
+
+.player-score:hover {
+    transform: scale(1.1);
+    font-weight: 900;
+}
+
+.player-score.disabled {
+    pointer-events: none;
+}
+
+.player-container .delete-player {
+    font-size: 1.7rem;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {color: white}
+}
+
+
+
+/* === Question/Answer Pop Up === */
+
+#question-answer {
+    background: radial-gradient(darkblue, blue);
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(100px);
+    display: none;
+    padding: 3rem;
+    flex-direction: column;
+    align-items: center;
+    overflow: clip;
+    gap: 5rem;
+    opacity: 0;
+    transition: display .3s ease, opacity .3s ease;
+    transition-behavior: allow-discrete;
+
+    & #question-wrapper {display: flex}
+    & #answer-wrapper {display: none}
+}
+
+#question-answer.show-question {
+    display: flex;
+    opacity: 1;
+    @starting-style {opacity: 0}
+}
+
+#question-answer.show-answer {
+    & #question-wrapper {display: none}
+    & #answer-wrapper {display: flex}
+}
+
+
+#question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#question-header h2 {
+    color: var(--yellow);
+    font-size: 5rem;
+}
+
+#answer-wrapper, #question-wrapper {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+:is(#answer-wrapper, #question-wrapper) button {
+    align-self: flex-end;
+}
+#question-answer p {
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+}
+
+/* === Timer Bar === */
+
+#timer-wrapper {
+    height: 2rem;
+    width: 50%;
+    background-color: transparent;
+    border: 3px solid var(--yellow);
+    border-radius: 100vmax;
+    position: relative;
+}
+
+#timer-bar {
+    position: absolute;
+    height: 100%;
+    background-color: var(--yellow);
+    border-radius: inherit;
+    width: 100%;
+    transition: all 0.5s linear;
+}
+
+/* Time Out Msg */
+
+#time-msg {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 5rem;
+    translate: 0 100%;
+    opacity: 0;
+    padding: 1rem 2rem;
+    transition-property: display translate opacity;
+    transition-duration: .2s;
+    transition-timing-function: ease;
+    transition-behavior: allow-discrete;
+}
+
+#time-msg h2 {
+    color: red;
+    font-size: 3rem;
+}
+
+#time-msg.show {
+    display: block;
+    translate: 0 0;
+    opacity: 1;
+    @starting-style {
+        translate: 0 100%;
+        opacity: 0;
+    }
+}
+
+.final-answer-status {
+    position: absolute;
+    inset: -.3rem -.5rem;
+    background-color: rgb(0 0 0 / .4);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: all 0.2s ease;
+}
+
+/* Final Answer Score Buttons */
+
+.final-answer-status > * {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid var(--color);
+    background-color: var(--color);
+    transition: all 0.2s ease;
+    &:is(.answer-right) {--color: #32cd32}
+    &:is(.answer-wrong) {--color: #ff0000}
+}
+
+.final-answer-status > *:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 0 hsl(from var(--color) h s calc(l - 20));
+}
+.final-answer-status > *:active {
+    transform: none;
+    box-shadow: none;
+}
+
+/* End Screen */
+
+body.show-end-screen #app {display: none}
+body.show-end-screen #end-screen {display: flex}
+
+
+#end-screen {
+    background: radial-gradient(blue, darkblue);
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: none;
+    padding: 2rem;
+}
+
+#end-screen h2 {
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-wrap: balance;
+}
+
+#winner-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+#winner-container > * {color: var(--yellow)}
+
+#winner-container p {font-size: clamp(3rem, 10vw, 6rem)}
+
+#winner-container .winner-name {
+    background-color: rgb(255 255 255 / .2);
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 600;
+    padding: 1rem 2rem;
+}
+
+#winner-container img {
+    display: block;
+    width: max(300px, 50%);
+    margin-inline: auto;
+    box-shadow: 2px 2px 5px rgb(0 0 0 / .2);
+}

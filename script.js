@@ -1,393 +1,307 @@
 let cl = console.log;
 
 // === DOM Elements ===
-const startingSreen = document.getElementById("starting-screen");
-let mainApp = document.getElementById("app");
-let problemButton = document.querySelectorAll(".prblm-btn");
+const categoriesContainer = document.getElementById("game-board");
 let popUp = document.getElementById("question-answer");
-let qCategory = document.getElementById("q-category");
-let qDifficulty = document.getElementById("q-difficulty");
-let problemTxt = document.getElementById("question-answer-txt");
-let popUpNextBtn = document.getElementById("next-btn");
-
-const playerPointsContainer = document.getElementById("player-points");
+const questionWrapper = document.getElementById("question-wrapper");
+const showAnswerBtn = document.getElementById("show-answer-btn");
+const returnBtn = document.getElementById("return-btn");
+const playersContainer = document.getElementById("players-container");
+const currentPlayerWrapper = document.getElementById("current-p-wrapper");
+const timeMsg = document.getElementById("time-msg");
+const finalJeopardyBtn = document.getElementById("final-jeopardy-btn");
 
 // === Variables ===
-let players = ["Team 1", "Team 2", "Team 3", "Team 4", "Team 5", "Team 6"];
+let players = JSON.parse(sessionStorage.getItem("playerNames")).map((name) => ({
+  name: name,
+  score: 0,
+}));
+
 let currentPlayerIndex = 0;
 let currentPlayerTurn = players[currentPlayerIndex];
 
-let userCategoryChoice = "";
-let userDifficultyChoice = "";
-
-let winnerScore = "";
-let winner = "";
-let winners = [];
-// === function to start game btn ===
-document
-  .getElementById("start-game-btn")
-  .addEventListener("click", function () {
-    startingSreen.style.display = "none";
-    mainApp.style.display = "grid";
-
-    populateCategoryHeaders();
-  });
-
-// function to populate category headers with category names
-function populateCategoryHeaders() {
-  let categoryNames = [];
-
+// === fetch question data ===
+document.addEventListener("DOMContentLoaded", () => {
   fetch("../questions/annah-questions.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      for (let i = 0; i < 6; i++) {
-        categoryNames.push(data["category-names"][`category-${i + 1}`]);
-      }
-      for (let i = 0; i < categoryNames.length; i++) {
-        document.getElementById(
-          `header-${i + 1}`
-        ).innerHTML = `${categoryNames[i]}`;
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching the JSON file:", error);
-    });
-}
-
-// === function for each problem button ===
-
-problemButton.forEach((button) => {
-  button.addEventListener("click", function () {
-    this.style.textDecoration = "line-through";
-    this.style.color = "#00000030";
-    this.style.textShadow = "none";
-    this.disabled = true;
-    userDifficultyChoice = this.innerHTML;
-    userCategoryChoice = this.parentElement.id;
-    showQuestion();
-  });
+    .then((res) => res.json())
+    .then((data) => populateCategories(Object.entries(data.categoryNames)))
+    .catch((error) => console.error("JSON fetch error:", error));
 });
 
-function showQuestion() {
-  popUp.style.display = "block";
-  qDifficulty.innerHTML = `$${userDifficultyChoice}`;
+// function to populate category headers with category names
+function populateCategories(names) {
+  for (let i = 0; i < names.length; i++) {
+    // prettier-ignore
+    categoriesContainer.innerHTML += `
+      <div class="category-column" id="category-${i + 1}">
+        <div class="category-header txt-shadow sub-section accent-font" id="header-${i + 1}">${names[i][1]}</div>
+        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">200</div>
+        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">400</div>
+        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">600</div>
+        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">800</div>
+        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">1000</div>
+      </div>`;
+  }
+
+  // add button click event listeners
+  addEventListeners();
+}
+// === function for each problem button ===
+function addEventListeners() {
+  document.querySelectorAll(".prblm-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      btn.classList.add("clicked");
+      sessionStorage.setItem("currentPrice", this.innerHTML);
+      const category = this.dataset.cat;
+      const price = this.innerHTML;
+      showQuestion(category, price);
+    });
+  });
+}
+
+function showQuestion(categoryNum, price) {
+  popUp.classList.add("show-question");
+  popUp.querySelector(".price").innerHTML = price;
 
   fetch("../questions/annah-questions.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
+    .then((res) => res.json())
     .then((data) => {
-      qCategory.innerHTML = data["category-names"][`${userCategoryChoice}`];
-      problemTxt.innerHTML =
-        data[userCategoryChoice][`$${userDifficultyChoice}`].question;
-    })
-    .catch((error) => {
-      console.error("Error fetching the JSON file:", error);
-    });
+      const category = data.categoryNames[`category-${categoryNum}`];
+      const question = data[`category-${categoryNum}`][price].question;
+      const answer = data[`category-${categoryNum}`][price].answer;
 
-  popUpNextBtn.innerHTML = "See Answer";
-  popUpNextBtn.replaceWith(popUpNextBtn.cloneNode(true));
-  popUpNextBtn = document.getElementById("next-btn");
-  popUpNextBtn.addEventListener("click", showAnswer);
+      popUp.querySelector(".category").innerHTML = category;
+      popUp.querySelector("#question-txt").innerHTML = question;
+      popUp.querySelector("#answer-txt").innerHTML = answer;
+    })
+    .catch((err) => console.error("JSON fetch error:", err));
+
+  showAnswerBtn.addEventListener("click", showAnswer);
 
   startCountdown(30);
 }
-function showAnswer() {
-  fetch("../questions/annah-questions.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      problemTxt.innerHTML =
-        data[userCategoryChoice][`$${userDifficultyChoice}`].answer;
-    })
-    .catch((error) => {
-      console.error("Error fetching the JSON file:", error);
-    });
 
-  popUpNextBtn.innerHTML = "Back to Game Board";
-  popUpNextBtn.replaceWith(popUpNextBtn.cloneNode(true));
-  popUpNextBtn = document.getElementById("next-btn");
-  popUpNextBtn.addEventListener("click", function () {
-    popUp.style.display = "none";
-    nextPlayer();
-  });
+returnBtn.addEventListener("click", () => {
+  popUp.classList.remove("show-answer");
+  popUp.classList.remove("show-question");
+  advancePlayer();
+});
+
+function showAnswer() {
+  popUp.classList.add("show-answer");
 }
 
 // ===== update next player =====
 
-document.getElementById(
-  "current-player"
-).innerHTML = `Current player is: <br> <span>${currentPlayerTurn}</span>`;
-
-function nextPlayer() {
-  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+function renderCurrentPlayer() {
   currentPlayerTurn = players[currentPlayerIndex];
-  document.getElementById(
-    "current-player"
-  ).innerHTML = `Current player is: <br> <span>${currentPlayerTurn}</span>`;
+  currentPlayerWrapper.innerHTML = currentPlayerTurn.name;
 }
 
-function displayPlayers() {
-  playerPointsContainer.innerHTML = "";
+function advancePlayer() {
+  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+  renderCurrentPlayer();
+}
+
+// show first player
+renderCurrentPlayer();
+
+function renderPlayers() {
+  playersContainer.innerHTML = "";
 
   for (let i = 0; i < players.length; i++) {
-    playerPointsContainer.innerHTML += `<div class="user-points"> 
-                  <div class="player-name-container">
-                      <input class="player-name-input" type="text" placeholder="${players[i]}:" autocomplete="off">
-                      <div class="player-name-display"></div>
-                  </div>
-                  <span class="user-point">0</span>
-                  <button class="delete-player">×</button>
-              </div>`;
+    let winningPlayer = getWinningPlayer();
+    playersContainer.innerHTML += `
+      <div class="player-container">
+          <div class="player-name-wrapper accent-font">${players[i].name}</div>
+          <span class="${
+            players[i] === winningPlayer ? "highest-score" : ""
+          } player-score accent-font">${players[i].score}</span>
+          <span class="material-symbols-rounded delete-player" data-player-name="${
+            players[i].name
+          }">delete</span>
+      </div>`;
   }
+
+  addPlayerBtnEvents();
 }
-displayPlayers();
 
-let deletePlayerBtns = document.querySelectorAll(".delete-player");
-
-deletePlayerBtns.forEach((btn) => {
-  btn.addEventListener("click", function () {
-    players.pop();
-    btn.parentElement.remove();
-  });
-});
-
-// ===== player name =====
-
-let playerNameInput = document.querySelectorAll(".player-name-input");
-let playerNameDisplay = document.querySelectorAll(".player-name-display");
-
-let playersArray = Array.from(playerPointsContainer.children);
-
-playerNameInput.forEach((input) => {
-  input.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      input.nextElementSibling.innerHTML = input.value + ":";
-
-      let i = playersArray.indexOf(input.parentElement.parentElement);
-      players[i] = input.value;
-
-      document.getElementById(
-        "current-player"
-      ).innerHTML = `Current player is: <br> <span>${players[0]}</span>`;
-      input.style.display = "none";
-    }
-  });
-});
-
-// ===== update player score =====
-
-let userPoints = document.querySelectorAll(".user-point");
-function updateScore() {
-  let currentPoint = Number(this.dataset.userPoint);
-  currentPoint += Number(userDifficultyChoice);
-  this.dataset.userPoint = currentPoint;
-  this.innerHTML = currentPoint;
-
+function getWinningPlayer() {
+  let winningPlayer;
   let highestScore = 0;
-  userPoints.forEach((p) => {
-    highestScore = Math.max(highestScore, Number(p.dataset.userPoint));
+  for (const p of players) {
+    if (p.score > highestScore) {
+      highestScore = p.score;
+      winningPlayer = p;
+    }
+  }
+  return winningPlayer;
+}
+
+renderPlayers();
+
+function addPlayerBtnEvents() {
+  const deletePlayerBtns = document.querySelectorAll(".delete-player");
+  const playerScoreWrappers = document.querySelectorAll(".player-score");
+
+  deletePlayerBtns.forEach((btn) => {
+    btn.addEventListener("click", () => deletePlayer(btn));
   });
 
-  userPoints.forEach((p) => {
-    if (Number(p.dataset.userPoint) === highestScore) {
-      p.style.color = "rgb(34, 255, 0)";
-    } else {
-      p.style.color = "";
-    }
+  playerScoreWrappers.forEach((scoreWrapper) => {
+    scoreWrapper.addEventListener("click", () => updateScore(scoreWrapper));
   });
 }
-userPoints.forEach((point) => {
-  point.dataset.userPoint = 0;
-  point.addEventListener("click", updateScore);
-});
+
+function deletePlayer(btn) {
+  const name = btn.dataset.playerName;
+  players.splice(players.indexOf(name), 1);
+  sessionStorage.setItem("playerNames", JSON.stringify(players));
+  renderPlayers();
+}
+
+function updateScore(playerScoreWrapper) {
+  const score = sessionStorage.getItem("currentPrice");
+  // prettier-ignore
+  const playerName = playerScoreWrapper.parentElement.querySelector(".player-name-wrapper").innerText;
+  const player = players.find((p) => p.name === playerName);
+  player.score += Number(score);
+  renderPlayers();
+}
 
 // ===== TIMER =====
 
-function startCountdown(countdownTime) {
-  // const timerElement = document.getElementById("timer");
+function startCountdown(duration) {
   const timerBar = document.getElementById("timer-bar");
+  timerBar.style.width = "100%";
+  const start = performance.now();
 
-  const interval = setInterval(() => {
-    // timerElement.classList.add("scaled");
-    // setTimeout(() => {
-    //   timerElement.classList.remove("scaled");
-    // }, 200);
+  function update(now) {
+    const elapsed = (now - start) / 1000;
+    const remaining = Math.max(0, duration - elapsed);
+    const percent = (remaining / duration) * 100;
+    timerBar.style.width = `${percent}%`;
 
-    // const minutes = Math.floor(countdownTime / 60);
-    // const seconds = countdownTime % 60;
+    const isVisible = getComputedStyle(questionWrapper).display !== "none";
 
-    // const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
-    //   seconds
-    // ).padStart(2, "0")}`;
-    // timerElement.textContent = formattedTime;
-    timerBar.style.width = `${(countdownTime / 30) * 100}%`;
-    // cl(`${(countdownTime / 30) * 100}%`);
-
-    countdownTime = countdownTime -= 0.005;
-
-    if (countdownTime < 0 || popUp.style.display === "none") {
-      clearInterval(interval);
-      // timerElement.textContent = "00:30";
-      timerBar.style.width = `100%`;
+    if (remaining > 0 && isVisible) {
+      requestAnimationFrame(update);
+    } else if (remaining <= 0 && isVisible) {
+      timerBar.style.width = "100%";
+      timeMsg.classList.add("show");
+      setTimeout(() => {
+        timeMsg.classList.remove("show");
+      }, 2000);
+    } else if (remaining <= 0 && !isVisible) {
+      timerBar.style.width = "100%";
     }
-  }, 5);
+  }
+
+  requestAnimationFrame(update);
 }
 
 // ===== FINAL JEOPARDY =====
-document
-  .getElementById("final-jeopardy-btn")
-  .addEventListener("click", finalJeopardy);
+finalJeopardyBtn.addEventListener("click", finalJeopardy);
 
 function finalJeopardy() {
-  popUp.style.display = "block";
-  qCategory.innerHTML = "FINAL JEOPARDY";
-  qDifficulty.innerHTML = "";
-  fetch("../questions/annah-questions.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
+  popUp.classList.add("show-question");
+
+  fetch("../questions/jeopardy-questions.json")
+    .then((res) => res.json())
     .then((data) => {
-      problemTxt.innerHTML = data["final-jeopardy"].question;
-    })
-    .catch((error) => {
-      console.error("Error fetching the JSON file:", error);
-    });
-  popUpNextBtn.innerHTML = "See Answer";
-  popUpNextBtn.replaceWith(popUpNextBtn.cloneNode(true));
-  popUpNextBtn = document.getElementById("next-btn");
-  popUpNextBtn.addEventListener("click", showFinalAnswer);
-  // document.getElementById("timer").innerText = "01:00";
-  startCountdown(30);
+      const question = data.finalJeopardy.question;
+      const answer = data.finalJeopardy.answer;
 
-  finalUserScore();
+      popUp.querySelector(".category").innerHTML = "Final Jeopardy";
+      popUp.querySelector("#question-txt").innerHTML = question;
+      popUp.querySelector("#answer-txt").innerHTML = answer;
+    })
+    .catch((err) => console.error("JSON fetch error:", err));
+
+  showAnswerBtn.addEventListener("click", showAnswer);
+
+  startCountdown(60);
+  addFinalScoreBtns();
 }
 
-function showFinalAnswer() {
-  fetch("../questions/annah-questions.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      problemTxt.innerHTML = data["final-jeopardy"].answer;
-    })
-    .catch((error) => {
-      console.error("Error fetching the JSON file:", error);
+function addFinalScoreBtns() {
+  const playerWrappers = document.querySelectorAll(".player-container");
+
+  playerWrappers.forEach((wrapper) => {
+    wrapper.querySelector(".player-score").classList.add("disabled");
+    wrapper.innerHTML += `<div class="final-answer-status">
+        <span class="material-symbols-rounded answer-right" data-status="right">check_circle</span>
+        <span class="material-symbols-rounded answer-wrong" data-status="wrong">cancel</span>
+      </div>`;
+
+    const scoreWrapper = wrapper.querySelector(".player-score");
+    const playerName = wrapper.querySelector(".player-name-wrapper").innerText;
+    const player = players.find((p) => p.name === playerName);
+
+    const statusBtns = wrapper.querySelectorAll("span");
+
+    statusBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const status = btn.dataset.status;
+
+        switch (status) {
+          case "right":
+            player.score *= 2;
+            scoreWrapper.style.color = "#32cd32";
+            break;
+          case "wrong":
+            player.score = 0;
+            scoreWrapper.style.color = "#ff0000";
+            break;
+          default:
+            break;
+        }
+        scoreWrapper.innerHTML = player.score;
+        wrapper.querySelector(".final-answer-status").style.display = "none";
+
+        if (wrapper === playersContainer.lastElementChild) endGame();
+      });
     });
-  popUpNextBtn.innerHTML = "Return to Game Board";
-  popUpNextBtn.replaceWith(popUpNextBtn.cloneNode(true));
-  popUpNextBtn = document.getElementById("next-btn");
-  popUpNextBtn.addEventListener("click", function () {
-    popUp.style.display = "none";
-
-    nextPlayer();
-  });
-}
-
-function finalUserScore() {
-  userPoints.forEach((point) => {
-    point.removeEventListener("click", updateScore);
-  });
-
-  let playerPoints = document.querySelectorAll(".user-points");
-  playerPoints.forEach((container) => {
-    container.innerHTML += `<div class="final-answer-status">
-                                <button class="answer-right">Right</button>
-                                <button class="answer-wrong">Wrong</button>
-                              </div>`;
-  });
-
-  document.querySelectorAll(".user-point").forEach((point) => {
-    point.addEventListener("mouseover", function () {
-      this.nextElementSibling.nextElementSibling.style.opacity = "1";
-    });
-  });
-  let rightAnswer = document.querySelectorAll(".answer-right");
-  let wrongAnswer = document.querySelectorAll(".answer-wrong");
-
-  rightAnswer.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      playerScore =
-        this.parentElement.parentElement.children[1].dataset.userPoint;
-      let currentScore = playerScore;
-      this.parentElement.parentElement.children[1].innerHTML = currentScore * 2;
-      this.parentElement.parentElement.children[1].style.color =
-        "rgb(34, 255, 0)";
-      this.parentElement.parentElement.children[1].style.fontWeight = "900";
-      btn.parentElement.style.display = "none";
-    });
-  });
-
-  wrongAnswer.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      this.parentElement.parentElement.children[1].innerHTML = 0;
-      this.parentElement.parentElement.children[1].style.color = "red";
-      this.parentElement.parentElement.children[1].style.fontWeight = "900";
-      btn.parentElement.style.display = "none";
-    });
-  });
-
-  let lastScore = playerPointsContainer.lastElementChild.children[3];
-  lastScore.children[0].addEventListener("click", () => {
-    calculateWinner();
-  });
-  lastScore.children[1].addEventListener("click", () => {
-    calculateWinner();
   });
 }
 
-function calculateWinner() {
-  let playerFinalScore = document.querySelectorAll(".user-point");
+function endGame() {
+  let winners = calculateWinners();
+
+  document.body.classList.add("show-end-screen");
+  const winnerContainer = document.getElementById("winner-container");
+  const endPageHeader = document.getElementById("winner-header");
+
+  if (winners.length > 1) {
+    endPageHeader.innerText = "The Winners are:";
+    winnerContainer.innerHTML = `${winners
+      .map(
+        (name) =>
+          `<span class="winner-name accent-font sub-section">${name}</span>`
+      )
+      .join(`<p class="accent-font">,</p>`)}`;
+  } else if (winners.length === 1) {
+    endPageHeader.innerText = "The Winner is:";
+    winnerContainer.innerHTML = `<span class="winner-name accent-font sub-section">${winners[0]}</span>`;
+  } else {
+    endPageHeader.innerText = "There are no winners. Y'all are a bunch of";
+    winnerContainer.innerHTML = `<img src="dum-dums.jpg">`;
+  }
+}
+
+function calculateWinners() {
   let winnerScore = 0;
-  playerFinalScore.forEach((score) => {
-    let scoreNum = score.innerHTML;
-    winnerScore = Math.max(winnerScore, Number(scoreNum));
+  let winners = [];
+
+  players.forEach((player) => {
+    winnerScore = Math.max(winnerScore, player.score);
   });
 
-  playerFinalScore.forEach((score) => {
-    if (Number(score.innerHTML) === winnerScore) {
-      winner = score.previousElementSibling.children[1].innerHTML;
-      winner = Array.from(winner);
-      winner.pop();
-      winner = winner.join("");
-
-      winners.push(winner);
+  players.forEach((player) => {
+    if (winnerScore !== 0 && player.score === winnerScore) {
+      winners.push(player.name);
     }
   });
 
-  setTimeout(showEndPage, 500);
-  showEndPage();
-}
-
-function showEndPage() {
-  document.getElementById("app").style.display = "none";
-  document.getElementById("end-screen").style.display = "flex";
-  if (winners.length > 1) {
-    winners = winners.join(" and ");
-    document.getElementById(
-      "winner-container"
-    ).innerHTML = `<h2>The Winners are:<br><span>${winners}</span></h2>`;
-  } else {
-    document.getElementById(
-      "winner-container"
-    ).innerHTML = `<h2>The Winner is:<br><span>${winner}</span></h2>`;
-  }
+  return winners;
 }

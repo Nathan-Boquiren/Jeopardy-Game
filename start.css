@@ -1,0 +1,178 @@
+body {
+    background-image: radial-gradient(darkblue, blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 5rem 1rem;
+    position: relative;
+}
+
+.jeopardy-logo {width: max(300px, 50vw)}
+
+.topic-name {
+    font-size: clamp(2.5rem, 10vw, 6rem);
+    color: var(--yellow);
+    text-transform: uppercase;
+    view-transition-name: topic;
+}
+
+
+/* Player Name Container */
+
+.player-name-container {
+    margin-block: auto;
+    width: clamp(19rem, 50%, 40rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
+                inset -1px -1px 2px rgb(0 0 0 /.2),
+                2px 2px 5px rgb(0 0 0 / .2);
+    background-color: rgb(255 255 255 / .1);
+    border-radius: 1.5rem;
+    padding: 1rem;
+}
+
+.player-name-container h3 {font-size: clamp(1.5rem, 3vw, 2rem)}
+
+.player-name-container #name-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-radius: 1rem;
+    box-shadow: inset 1px 1px 5px rgb(0 0 0 / .5);
+    padding: 1rem;
+}
+
+.player-name-container #name-list li {
+    list-style: none;
+    font-family: var(--accent-font);
+    font-weight: 500;
+    font-size: clamp(1rem, 3vw, 2.5rem);
+    color: var(--yellow);
+    box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
+                inset -1px -1px 2px rgb(0 0 0 /.2),
+                2px 2px 5px rgb(0 0 0 / .2);
+    background-color: rgb(255 255 255 / .08);
+    border-radius: 1rem;
+    padding: .5rem 1rem;
+}
+
+#add-player-btn {
+    align-self: flex-end;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+/* Form Modal */
+
+#form-modal, #form-modal::backdrop {
+    transition-duration: .4s;
+    transition-timing-function: ease;
+    transition-behavior: allow-discrete;
+}
+
+#form-modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
+                inset -1px -1px 2px rgb(0 0 0 /.2),
+                2px 2px 5px rgb(0 0 0 / .2);
+    background-color: darkblue;
+    border-radius: 1.5rem;
+    padding: 1.5rem 2rem;
+    border: none;
+    opacity: 0;
+    translate: 0 25vh;
+    display: none;
+    transition-property: display opacity translate;
+}
+
+#form-modal[open] {
+    display: block;
+    translate: 0 0vh;
+    opacity: 1;
+}
+
+#form-modal::backdrop {
+    opacity: 0;
+    backdrop-filter: blur(.5rem) brightness(0.7);
+    transition-property: opacity display overlay;
+}
+
+#form-modal[open]::backdrop {opacity: 1}
+
+@starting-style {
+    #form-modal[open] {opacity: 0; translate: 0 -25vh}
+    #form-modal[open]::backdrop {opacity: 0}
+}
+
+/* Players Form */
+
+#players-form label {
+    display: block;
+    color: var(--yellow);
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+#players-form input {
+    background-color: transparent;
+    border: 2px solid white;
+    font-size: 2rem;
+    padding: .5rem;
+    border-radius: .5rem;
+    margin-block: 1rem;
+    transition: background-color 0.2s ease;
+    
+    &:focus {outline: none; background-color: rgb(255 255 255 / .1);}
+}
+
+#submit-btn {
+    display: block;
+    margin-left: auto;
+    font-family: 'Material Symbols Rounded';
+    color: var(--yellow);
+    background-color: transparent;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {animation: bounce 0.3s ease forwards}
+}
+
+@keyframes bounce {
+    0% {transform: translateX(0px)}
+    20% {transform: translateX(-2px)}
+    80% {transform: translateX(7px)}
+    100% {transform: translateX(5px)}
+}
+
+/* Start Game Button */
+
+a {
+    background-color: transparent;
+    border: none;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    padding: clamp(.5rem, 1.5vw, .7rem) 2rem;
+    border-radius: 100vmax;
+    border: 3px solid var(--yellow);
+    background-color: transparent;
+    color: var(--yellow);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    transform: translateY(-5px);
+    background-color: var(--yellow);
+    box-shadow: 0 5px 0 var(--hover-yellow);
+    filter: none;
+    color: darkblue;
+}
