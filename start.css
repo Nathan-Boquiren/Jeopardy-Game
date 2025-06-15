@@ -44,6 +44,7 @@ body {
     border-radius: 1rem;
     box-shadow: inset 1px 1px 5px rgb(0 0 0 / .5);
     padding: 1rem;
+    min-height: 3rem;
 }
 
 .player-name-container #name-list li {
@@ -58,6 +59,12 @@ body {
     background-color: rgb(255 255 255 / .08);
     border-radius: 1rem;
     padding: .5rem 1rem;
+}
+
+.player-name-container #name-list p {
+    color: rgb(255 255 255 / .5);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    
 }
 
 #add-player-btn {
