@@ -36,7 +36,6 @@ button:active {
     padding-block: .5rem;
 }
 
-
 /* ===== Main Game Area ===== */
 
 #app {
@@ -193,9 +192,7 @@ button:active {
     font-weight: 900;
 }
 
-.player-score.disabled {
-    pointer-events: none;
-}
+.player-score.disabled {pointer-events: none}
 
 .player-container .delete-player {
     font-size: 1.7rem;
@@ -241,11 +238,7 @@ button:active {
     transform: translateY(-5px);
     box-shadow: 0 5px 0 hsl(from var(--color) h s calc(l - 20));
 }
-.final-answer-status > *:active {
-    transform: none;
-    box-shadow: none;
-}
-
+.final-answer-status > *:active {transform: none; box-shadow: none}
 
 /* === Question/Answer Pop Up === */
 
@@ -297,6 +290,7 @@ button:active {
 #question-header h2 {
     color: var(--yellow);
     font-size: clamp(2rem, 4vw, 4rem);
+    text-align: center;
 }
 
 #answer-wrapper, #question-wrapper {
@@ -332,7 +326,6 @@ button:active {
 #question-answer p {
     text-align: center;
     font-size: 3rem;
-    color: white;
 }
 
 /* === Timer Bar === */
@@ -347,7 +340,7 @@ button:active {
 
 #timer-bar {
     position: absolute;
-    height: 100%;
+    inset-block: 0;
     background-color: var(--yellow);
     border-radius: inherit;
     width: 100%;
@@ -389,7 +382,6 @@ button:active {
 
 body.show-end-screen #app {display: none}
 body.show-end-screen #end-screen {display: flex}
-
 
 #end-screen {
     background: radial-gradient(blue, darkblue);
