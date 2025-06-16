@@ -22,24 +22,24 @@ let currentPlayerTurn = players[currentPlayerIndex];
 
 // === fetch question data ===
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("../questions/annah-questions.json")
+  fetch("../questions/fathers-day-questions.json")
     .then((res) => res.json())
-    .then((data) => populateCategories(Object.entries(data.categoryNames)))
+    .then((data) => populateCategories(data.mainCategories))
     .catch((error) => console.error("JSON fetch error:", error));
 });
 
 // function to populate category headers with category names
-function populateCategories(names) {
-  for (let i = 0; i < names.length; i++) {
+function populateCategories(categories) {
+  for (let i = 0; i < categories.length; i++) {
     // prettier-ignore
     categoriesContainer.innerHTML += `
       <div class="category-column" id="category-${i + 1}">
-        <div class="category-header txt-shadow sub-section accent-font" id="header-${i + 1}">${names[i][1]}</div>
-        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">200</div>
-        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">400</div>
-        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">600</div>
-        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">800</div>
-        <div data-cat="${i + 1}" class="prblm-btn sub-section txt-shadow accent-font">1000</div>
+        <div class="category-header txt-shadow sub-section accent-font" id="header-${i + 1}">${categories[i].name}</div>
+        <div data-cat-num="${i}" class="prblm-btn sub-section txt-shadow accent-font">200</div>
+        <div data-cat-num="${i}" class="prblm-btn sub-section txt-shadow accent-font">400</div>
+        <div data-cat-num="${i}" class="prblm-btn sub-section txt-shadow accent-font">600</div>
+        <div data-cat-num="${i}" class="prblm-btn sub-section txt-shadow accent-font">800</div>
+        <div data-cat-num="${i}" class="prblm-btn sub-section txt-shadow accent-font">1000</div>
       </div>`;
   }
 
@@ -52,25 +52,25 @@ function addEventListeners() {
     btn.addEventListener("click", function () {
       btn.classList.add("clicked");
       sessionStorage.setItem("currentPrice", this.innerHTML);
-      const category = this.dataset.cat;
+      const category = this.dataset.catNum;
       const price = this.innerHTML;
       showQuestion(category, price);
     });
   });
 }
 
-function showQuestion(categoryNum, price) {
+function showQuestion(catNum, price) {
   popUp.classList.add("show-question");
   popUp.querySelector(".price").innerHTML = price;
 
-  fetch("../questions/annah-questions.json")
+  fetch("../questions/fathers-day-questions.json")
     .then((res) => res.json())
     .then((data) => {
-      const category = data.categoryNames[`category-${categoryNum}`];
-      const question = data[`category-${categoryNum}`][price].question;
-      const answer = data[`category-${categoryNum}`][price].answer;
+      const categoryName = data.mainCategories[catNum].name;
+      const question = data.mainCategories[catNum].questions[price].question;
+      const answer = data.mainCategories[catNum].questions[price].answer;
 
-      popUp.querySelector(".category").innerHTML = category;
+      popUp.querySelector(".category").innerHTML = categoryName;
       popUp.querySelector("#question-txt").innerHTML = question;
       popUp.querySelector("#answer-txt").innerHTML = answer;
     })
@@ -206,7 +206,7 @@ finalJeopardyBtn.addEventListener("click", finalJeopardy);
 function finalJeopardy() {
   popUp.classList.add("show-question");
 
-  fetch("../questions/jeopardy-questions.json")
+  fetch("../questions/fathers-day-questions.json")
     .then((res) => res.json())
     .then((data) => {
       const question = data.finalJeopardy.question;

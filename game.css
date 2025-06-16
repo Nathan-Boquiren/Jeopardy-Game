@@ -223,9 +223,7 @@ button:active {
     transition: all 0.2s ease;
 }
 
-.player-container:has(.final-answer-status) > *:not(.final-answer-status) {
-    filter: blur(5px);
-}
+.player-container:has(.final-answer-status) > *:not(.final-answer-status) {filter: blur(5px)}
 
 .final-answer-status > * {
     font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -281,17 +279,24 @@ button:active {
     & #answer-wrapper {display: flex}
 }
 
-
 #question-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
     width: 100%;
+}
+
+#question-header .line {
+    width: 4px;
+    height: 100%;
+    background-color: var(--yellow);
+    border-radius: 100vmax;
 }
 
 #question-header h2 {
     color: var(--yellow);
-    font-size: 5rem;
+    font-size: clamp(2rem, 4vw, 4rem);
 }
 
 #answer-wrapper, #question-wrapper {
@@ -325,9 +330,8 @@ button:active {
 /* === Timer Bar === */
 
 #timer-wrapper {
+    flex: 1 1 30%;
     height: 2rem;
-    width: 50%;
-    background-color: transparent;
     border: 3px solid var(--yellow);
     border-radius: 100vmax;
     position: relative;

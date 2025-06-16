@@ -33,9 +33,10 @@ function addPlayer(name) {
 
 function renderNameList(names) {
   playerNameContainer.innerHTML = "";
-  for (const name of names) {
+  names.forEach((name, idx) => {
     const nameElement = document.createElement("li");
     nameElement.innerText = name;
+    nameElement.style.cssText = `view-transition-name: name-${idx};`;
     playerNameContainer.append(nameElement);
-  }
+  });
 }
