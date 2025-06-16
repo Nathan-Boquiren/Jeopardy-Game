@@ -319,6 +319,14 @@ button:active {
     position: absolute;
     bottom: 0;
     right: 0;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+:is(#answer-wrapper, #question-wrapper) button::after {
+    content: 'arrow_forward';
+    font-family: 'Material Symbols Rounded';
 }
 
 #question-answer p {
