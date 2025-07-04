@@ -1,0 +1,134 @@
+{
+    "mainCategories": [
+        {
+            "name": "Cartoon Chaos",
+            "questions": {
+                "100": {
+                    "question": "This blue cat and mouse duo starred in a classic Hanna-Barbera series.",
+                    "answer": "Who are Tom and Jerry?"
+                },
+                "200": {
+                    "question": "This Disney duck is known for his sailor jacket and hot temper.",
+                    "answer": "Who is Donald Duck?"
+                },
+                "300": {
+                    "question": "This Disney princess loses her glass slipper at a royal ball.",
+                    "answer": "Who is Cinderella?"
+                },
+                
+                "400": {
+                    "question": "This Disney film features a young lion named Simba who must reclaim his throne.",
+                    "answer": "What is The Lion King?"
+                },
+                "500": {
+                    "question": "This Looney Tunes character is a fast-running bird always outsmarting Wile E. Coyote.",
+                    "answer": "Who is the Road Runner?"
+                }
+            }
+        },
+        {
+            "name": "Mythical Creatures",
+            "questions": {
+                "100": {
+                    "question": "This fire-breathing creature is often depicted as a large, winged reptile.",
+                    "answer": "What is a dragon?"
+                },
+                "200": {
+                    "question": "This winged horse is a symbol of wisdom and fame in Greek mythology.",
+                    "answer": "What is Pegasus?"
+                },
+                "300": {
+                    "question": "This Egyptian creature with a human body and lion’s head guards the pyramids.",
+                    "answer": "What is the Sphinx?"
+                },
+                "400": {
+                    "question": "This half-human, half-horse creature is known for its wild nature in Greek lore.",
+                    "answer": "What is a centaur?"
+                },
+                "500": {
+                    "question": "This Norse creature is a giant serpent that encircles the world, biting its own tail.",
+                    "answer": "What is Jörmungandr?"
+                }
+            }
+        },
+        {
+            "name": "Space Oddities",
+            "questions": {
+                "100": {
+                    "question": "This planet is known for its prominent ring system.",
+                    "answer": "What is Saturn?"
+                },
+                "200": {
+                    "question": "This bright object, often called a shooting star, burns up in Earth’s atmosphere.",
+                    "answer": "What is a meteor?"
+                },
+                "300": {
+                    "question": "This region beyond Neptune contains small, icy bodies like Pluto.",
+                    "answer": "What is the Kuiper Belt?"
+                },
+                "400": {
+                    "question": "This phenomenon, caused by charged particles hitting Earth’s atmosphere, creates colorful sky displays.",
+                    "answer": "What is the aurora?"
+                },
+                "500": {
+                    "question": "This hypothetical form of matter, inferred from gravitational effects, cannot be directly observed.",
+                    "answer": "What is dark matter?"
+                }
+            }
+        },
+        {
+            "name": "Superhero Secrets",
+            "questions": {
+                "100": {
+                    "question": "This superhero is known as the Man of Steel from Krypton.",
+                    "answer": "Who is Superman?"
+                },
+                "200": {
+                    "question": "This hero’s real name is Bruce Wayne and he protects Gotham City.",
+                    "answer": "Who is Batman?"
+                },
+                "300": {
+                    "question": "This Marvel hero, also known as Peter Parker, swings through New York City.",
+                    "answer": "Who is Spider-Man?"
+                },
+                "400": {
+                    "question": "This telepathic X-Men leader uses a wheelchair and founded the Xavier Institute.",
+                    "answer": "Who is Professor X?"
+                },
+                "500": {
+                    "question": "This hero, known as the Sorcerer Supreme, protects Earth from mystical threats using the Eye of Agamotto.",
+                    "answer": "Who is Doctor Strange?"
+                }
+            }
+        },
+        {
+            "name": "Ancient Wonders",
+            "questions": {
+                "100": {
+                    "question": "This Egyptian structure is the largest pyramid in Giza.",
+                    "answer": "What is the Great Pyramid?"
+                },
+                "200": {
+                    "question": "This Greek wonder was a colossal statue honoring the king of the gods.",
+                    "answer": "What is the Statue of Zeus?"
+                },
+                "300": {
+                    "question": "This wonder, located in Iraq, was known for its terraced gardens.",
+                    "answer": "What are the Hanging Gardens of Babylon?"
+                },
+                "400": {
+                    "question": "This temple, considered one of the most beautiful buildings of the ancient world, honored a godess associated with wilderness and childbirth.",
+                    "answer": "What is the Temple of Artemis?"
+                },
+                "500": {
+                    "question": "Constructed during the Ptolemaic dynasty, this island marvel aided ships approaching a vital Egyptian port.",
+                    "answer": "What is the Lighthouse of Alexandria?"
+                }
+            }
+        }
+    ],
+    "finalJeopardy": {
+        "question": "This NASA mission, launched in 1977, was the first to fly by Uranus and Neptune, providing unprecedented data about the outer planets.",
+        "answer": "What is Voyager 2?"
+    }
+}
