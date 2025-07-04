@@ -11,8 +11,11 @@ const nameInput = playerNameForm.querySelector("input");
 const submitBtn = document.getElementById("submit-btn");
 const closeBtn = document.getElementById("close-btn");
 
+const startBtn = document.getElementById("start-btn");
+
 // Modal Functionality
 addPlayerbtn.addEventListener("click", () => formModal.showModal());
+
 submitBtn.addEventListener("click", () => formModal.close());
 
 closeBtn.addEventListener("click", () => formModal.close());
@@ -43,3 +46,10 @@ function renderNameList(names) {
     playerNameContainer.append(nameElement);
   });
 }
+
+// Start Game
+
+startBtn.addEventListener("click", () => {
+  if (!sessionStorage.getItem("playerNames")) return;
+  window.location.href = "game.html";
+});

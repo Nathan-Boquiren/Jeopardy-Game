@@ -1,5 +1,5 @@
 body {
-    background-image: radial-gradient(darkblue, blue);
+    background-image: radial-gradient(var(--theme-dark), var(--theme-light));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,7 +82,7 @@ body {
     box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
                 inset -1px -1px 2px rgb(0 0 0 /.2),
                 2px 2px 5px rgb(0 0 0 / .2);
-    background-color: darkblue;
+    background-color: var(--theme-dark);
     border-radius: 1.5rem;
     padding: 1.5rem 2rem;
     border: none;
@@ -157,7 +157,7 @@ body {
     display: block;
     margin-left: auto;
     font-family: 'Material Symbols Rounded';
-    color: hsl(240, 100%, 80%);
+    color: rgb(255 255 255 / .7);
     background-color: transparent;
     border: none;
     font-size: 1.3rem;
@@ -167,7 +167,7 @@ body {
 
 /* Start Game Button */
 
-a {
+#start-btn {
     background-color: transparent;
     border: none;
     font-weight: 700;
@@ -182,10 +182,10 @@ a {
     transition: all 0.2s ease;
 }
 
-a:hover {
+#start-btn:hover {
     transform: translateY(-5px);
     background-color: var(--yellow);
     box-shadow: 0 5px 0 var(--hover-yellow);
     filter: none;
-    color: darkblue;
+    color: var(--theme-dark);
 }

@@ -14,8 +14,10 @@
 :root {
     --accent-font: 'Ubuntu', Arial, Helvetica, sans-serif;
     --san-serif: 'Roboto', Arial, Helvetica, sans-serif;
-    --yellow: rgb(255, 230, 0);
+    --yellow: hsl(54, 100%, 50%);
     --hover-yellow: hsl(from var(--yellow) h calc(s + 20) calc(l - 20));
+    --theme-light: hsl(200, 100%, 50%);
+    --theme-dark: hsl(from var(--theme-light) h s calc(l - 25));
 }
 
 body {

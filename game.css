@@ -17,7 +17,7 @@ button:hover {
     background-color: var(--yellow);
     box-shadow: 0 5px 0 var(--hover-yellow);
     filter: none;
-    color: darkblue;
+    color: var(--theme-dark);
 }
 
 button:active {
@@ -42,7 +42,7 @@ button:active {
     --gap: 1.5rem;
     position: relative;
     padding: 2.5rem;
-    background-image: radial-gradient(blue, darkblue);
+    background-image: radial-gradient(var(--theme-light), var(--theme-dark));
     min-height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -243,7 +243,7 @@ button:active {
 /* === Question/Answer Pop Up === */
 
 #question-answer {
-    background: radial-gradient(darkblue, blue);
+    background: radial-gradient(var(--theme-dark), var(--theme-light));
     position: absolute;
     inset: 0;
     backdrop-filter: blur(100px);
@@ -384,7 +384,7 @@ body.show-end-screen #app {display: none}
 body.show-end-screen #end-screen {display: flex}
 
 #end-screen {
-    background: radial-gradient(blue, darkblue);
+    background: radial-gradient(var(--theme-light), var(--theme-dark));
     flex-direction: column;
     gap: 3rem;
     justify-content: center;
