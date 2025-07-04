@@ -2,7 +2,7 @@ let cl = console.log;
 
 // === DOM Elements ===
 const categoriesContainer = document.getElementById("game-board");
-let popUp = document.getElementById("question-answer");
+const popUp = document.getElementById("question-answer");
 const questionWrapper = document.getElementById("question-wrapper");
 const showAnswerBtn = document.getElementById("show-answer-btn");
 const returnBtn = document.getElementById("return-btn");

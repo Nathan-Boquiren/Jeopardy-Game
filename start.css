@@ -153,6 +153,18 @@ body {
     100% {transform: translateX(5px)}
 }
 
+#close-btn {
+    display: block;
+    margin-left: auto;
+    font-family: 'Material Symbols Rounded';
+    color: hsl(240, 100%, 80%);
+    background-color: transparent;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 /* Start Game Button */
 
 a {

@@ -9,10 +9,13 @@ const formModal = document.getElementById("form-modal");
 const playerNameForm = document.getElementById("players-form");
 const nameInput = playerNameForm.querySelector("input");
 const submitBtn = document.getElementById("submit-btn");
+const closeBtn = document.getElementById("close-btn");
 
 // Modal Functionality
 addPlayerbtn.addEventListener("click", () => formModal.showModal());
 submitBtn.addEventListener("click", () => formModal.close());
+
+closeBtn.addEventListener("click", () => formModal.close());
 
 // Add players
 
