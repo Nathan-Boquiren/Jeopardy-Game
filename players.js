@@ -25,7 +25,7 @@ closeBtn.addEventListener("click", () => formModal.close());
 playerNameForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const playerName = nameInput.value;
-  addPlayer(playerName);
+  if (playerName.replace(/\s+/g, "") !== "") addPlayer(playerName);
   nameInput.value = "";
 });
 
