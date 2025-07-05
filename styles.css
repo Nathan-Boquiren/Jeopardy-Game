@@ -15,7 +15,7 @@
     --accent-font: 'Ubuntu', Arial, Helvetica, sans-serif;
     --san-serif: 'Roboto', Arial, Helvetica, sans-serif;
     --accent-clr-light: hsl(54, 100%, 50%);
-    --accent-clr-dark: hsl(from var(--yellow) h calc(s + 20) calc(l - 20));
+    --accent-clr-dark: hsl(from var(--accent-clr-light) h calc(s + 20) calc(l - 20));
     --theme-light: hsl(240, 100%, 50%);
     --theme-dark: hsl(from var(--theme-light) h s calc(l - 25));
 }
