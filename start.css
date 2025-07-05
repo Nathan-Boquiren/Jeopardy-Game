@@ -13,7 +13,7 @@ body {
 
 .topic-name {
     font-size: clamp(2.5rem, 10vw, 6rem);
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     text-transform: uppercase;
     view-transition-name: topic;
 }
@@ -33,6 +33,7 @@ body {
     background-color: rgb(255 255 255 / .1);
     border-radius: 1.5rem;
     padding: 1rem;
+    backdrop-filter: blur(5px);
 }
 
 .player-name-container h3 {font-size: clamp(1.5rem, 3vw, 2rem)}
@@ -52,7 +53,7 @@ body {
     font-family: var(--accent-font);
     font-weight: 500;
     font-size: clamp(1rem, 3vw, 2.5rem);
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
                 inset -1px -1px 2px rgb(0 0 0 /.2),
                 2px 2px 5px rgb(0 0 0 / .2);
@@ -115,7 +116,7 @@ body {
 
 #players-form label {
     display: block;
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     font-weight: 600;
     font-size: 1.5rem;
 }
@@ -136,7 +137,7 @@ body {
     display: block;
     margin-left: auto;
     font-family: 'Material Symbols Rounded';
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     background-color: transparent;
     border: none;
     font-size: 1.8rem;
@@ -174,9 +175,9 @@ body {
     font-size: clamp(1.5rem, 5vw, 2rem);
     padding: clamp(.5rem, 1.5vw, .7rem) 2rem;
     border-radius: 100vmax;
-    border: 3px solid var(--yellow);
+    border: 3px solid var(--accent-clr-light);
     background-color: transparent;
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     cursor: pointer;
     text-decoration: none;
     transition: all 0.2s ease;
@@ -184,8 +185,8 @@ body {
 
 #start-btn:hover {
     transform: translateY(-5px);
-    background-color: var(--yellow);
-    box-shadow: 0 5px 0 var(--hover-yellow);
+    background-color: var(--accent-clr-light);
+    box-shadow: 0 5px 0 var(--accent-clr-dark);
     filter: none;
     color: var(--theme-dark);
 }

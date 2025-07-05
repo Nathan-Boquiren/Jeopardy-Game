@@ -3,7 +3,7 @@ let cl = console.log;
 // DOM Elements
 
 const playerNameContainer = document.getElementById("name-list");
-const addPlayerbtn = document.getElementById("add-player-btn");
+const addPlayerBtn = document.getElementById("add-player-btn");
 
 const formModal = document.getElementById("form-modal");
 const playerNameForm = document.getElementById("players-form");
@@ -14,14 +14,16 @@ const closeBtn = document.getElementById("close-btn");
 const startBtn = document.getElementById("start-btn");
 
 // Modal Functionality
-addPlayerbtn.addEventListener("click", () => formModal.showModal());
+addPlayerBtn.addEventListener("click", () => formModal.showModal());
+
+addPlayerBtn.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") formModal.showModal();
+});
 
 submitBtn.addEventListener("click", () => formModal.close());
-
 closeBtn.addEventListener("click", () => formModal.close());
 
 // Add players
-
 playerNameForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const playerName = nameInput.value;
@@ -48,7 +50,6 @@ function renderNameList(names) {
 }
 
 // Start Game
-
 startBtn.addEventListener("click", () => {
   if (!sessionStorage.getItem("playerNames")) return;
   window.location.href = "game.html";

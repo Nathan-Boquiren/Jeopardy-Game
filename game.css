@@ -5,17 +5,17 @@ button {
     font-size: clamp(1.5rem, 5vw, 2rem);
     padding: clamp(.5rem, 1.5vw, .7rem) 2rem;
     border-radius: 100vmax;
-    border: 3px solid var(--yellow);
+    border: 3px solid var(--accent-clr-light);
     background-color: transparent;
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 button:hover {
     transform: translateY(-5px);
-    background-color: var(--yellow);
-    box-shadow: 0 5px 0 var(--hover-yellow);
+    background-color: var(--accent-clr-light);
+    box-shadow: 0 5px 0 var(--accent-clr-dark);
     filter: none;
     color: var(--theme-dark);
 }
@@ -69,7 +69,7 @@ button:active {
 }
 
 #app #header h2 {
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     font-weight: 800;
     font-size: clamp(2rem, 7vw, 4rem);
     text-transform: uppercase;
@@ -109,7 +109,7 @@ button:active {
 .prblm-btn {
     font-size: clamp(2rem, 5vw, 3.5rem);
     text-align: center;
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -144,7 +144,7 @@ button:active {
 
 #current-p-wrapper {
     font-weight: 600;
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     font-size: clamp(2rem, 3vw, 2.5rem);
 }
 
@@ -175,7 +175,8 @@ button:active {
 
 .player-score {
     text-align: end;
-    color: var(--yellow);
+    color: var(--accent-clr-light);
+
     font-weight: 500;
     font-size: 3rem;
     cursor: pointer;
@@ -283,12 +284,12 @@ button:active {
 #question-header .line {
     width: 4px;
     height: 100%;
-    background-color: var(--yellow);
+    background-color: var(--accent-clr-light);
     border-radius: 100vmax;
 }
 
 #question-header h2 {
-    color: var(--yellow);
+    color: var(--accent-clr-light);
     font-size: clamp(2rem, 4vw, 4rem);
     text-align: center;
 }
@@ -333,7 +334,7 @@ button:active {
 #timer-wrapper {
     flex: 1 1 30%;
     height: 2rem;
-    border: 3px solid var(--yellow);
+    border: 3px solid var(--accent-clr-light);
     border-radius: 100vmax;
     position: relative;
 }
@@ -341,7 +342,7 @@ button:active {
 #timer-bar {
     position: absolute;
     inset-block: 0;
-    background-color: var(--yellow);
+    background-color: var(--accent-clr-light);
     border-radius: inherit;
     width: 100%;
     transition: all 0.5s linear;
@@ -408,7 +409,7 @@ body.show-end-screen #end-screen {display: flex}
     justify-content: center;
 }
 
-#winner-container > * {color: var(--yellow)}
+#winner-container > * {color: var(--accent-clr-light)}
 
 #winner-container p {font-size: clamp(3rem, 10vw, 6rem)}
 

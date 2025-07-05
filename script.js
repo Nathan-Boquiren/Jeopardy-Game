@@ -22,7 +22,7 @@ let currentPlayerTurn = players[currentPlayerIndex];
 
 // === fetch question data ===
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("../questions/july-questions.json")
+  fetch("../questions/independence-questions.json")
     .then((res) => res.json())
     .then((data) => populateCategories(data.mainCategories))
     .catch((error) => console.error("JSON fetch error:", error));
@@ -63,7 +63,7 @@ function showQuestion(catNum, price) {
   popUp.classList.add("show-question");
   popUp.querySelector(".price").innerHTML = price;
 
-  fetch("../questions/july-questions.json")
+  fetch("../questions/independence-questions.json")
     .then((res) => res.json())
     .then((data) => {
       const categoryName = data.mainCategories[catNum].name;
@@ -206,7 +206,7 @@ finalJeopardyBtn.addEventListener("click", finalJeopardy);
 function finalJeopardy() {
   popUp.classList.add("show-question");
 
-  fetch("../questions/july-questions.json")
+  fetch("../questions/independence-questions.json")
     .then((res) => res.json())
     .then((data) => {
       const question = data.finalJeopardy.question;
