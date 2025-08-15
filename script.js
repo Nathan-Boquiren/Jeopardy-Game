@@ -22,7 +22,7 @@ let currentPlayerTurn = players[currentPlayerIndex];
 
 // === fetch question data ===
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("../questions/july-questions.json")
+  fetch("../questions/baby-shower.json")
     .then((res) => res.json())
     .then((data) => populateCategories(data.mainCategories))
     .catch((error) => console.error("JSON fetch error:", error));
@@ -63,7 +63,7 @@ function showQuestion(catNum, price) {
   popUp.classList.add("show-question");
   popUp.querySelector(".price").innerHTML = price;
 
-  fetch("../questions/july-questions.json")
+  fetch("../questions/baby-shower.json")
     .then((res) => res.json())
     .then((data) => {
       const categoryName = data.mainCategories[catNum].name;
@@ -114,12 +114,8 @@ function renderPlayers() {
     playersContainer.innerHTML += `
       <div class="player-container">
           <div class="player-name-wrapper accent-font">${players[i].name}</div>
-          <span class="${
-            players[i] === winningPlayer ? "highest-score" : ""
-          } player-score accent-font">${players[i].score}</span>
-          <span class="material-symbols-rounded delete-player" data-player-name="${
-            players[i].name
-          }">delete</span>
+          <span class="${players[i] === winningPlayer ? "highest-score" : ""} player-score accent-font">${players[i].score}</span>
+          <span class="material-symbols-rounded delete-player" data-player-name="${players[i].name}">delete</span>
       </div>`;
   }
 
@@ -206,7 +202,7 @@ finalJeopardyBtn.addEventListener("click", finalJeopardy);
 function finalJeopardy() {
   popUp.classList.add("show-question");
 
-  fetch("../questions/july-questions.json")
+  fetch("../questions/baby-shower.json")
     .then((res) => res.json())
     .then((data) => {
       const question = data.finalJeopardy.question;
@@ -275,10 +271,7 @@ function endGame() {
   if (winners.length > 1) {
     endPageHeader.innerText = "The Winners are:";
     winnerContainer.innerHTML = `${winners
-      .map(
-        (name) =>
-          `<span class="winner-name accent-font sub-section">${name}</span>`
-      )
+      .map((name) => `<span class="winner-name accent-font sub-section">${name}</span>`)
       .join(`<p class="accent-font">,</p>`)}`;
   } else if (winners.length === 1) {
     endPageHeader.innerText = "The Winner is:";
