@@ -121,13 +121,13 @@
                 },
                 "1000": {
                     "question": "This is the most popular name for baby girls as of 2025.",
-                    "answer": "What is Olivia?<br><img src='' width='50%'>"
+                    "answer": "What is Olivia?<br><img src='https://static.vecteezy.com/system/resources/previews/035/804/723/non_2x/ai-generated-sleeping-newborn-baby-in-a-wrap-on-pink-blanket-free-photo.jpg' width='50%'>"
                 }
             }
         }
     ],
     "finalJeopardy": {
-        "question": "",
-        "answer": ""
+        "question": "This Greek infant figure thwarted a serpentine attack in his cradle.",
+        "answer": "Who is Hercules?<br><img src='https://th.bing.com/th/id/R.dd48d83fd25f7366306ae3a5c0a99db4?rik=AzAA8AhyNAtMxg&pid=ImgRaw&r=0' width='60%'>"
     }
 }
