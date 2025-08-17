@@ -70,6 +70,8 @@ function showQuestion(catNum, price) {
       const question = data.mainCategories[catNum].questions[price].question;
       const answer = data.mainCategories[catNum].questions[price].answer;
 
+      cl(`Q: ${question}\nA:${answer.split("<br>")[0]}\n`);
+
       popUp.querySelector(".category").innerHTML = categoryName;
       popUp.querySelector("#question-txt").innerHTML = question;
       popUp.querySelector("#answer-txt").innerHTML = answer;
