@@ -12,6 +12,8 @@ const timeMsg = document.getElementById("time-msg");
 const finalJeopardyBtn = document.getElementById("final-jeopardy-btn");
 
 // === Variables ===
+const categoryPath = "../questions/other-questions.json";
+
 let players = JSON.parse(sessionStorage.getItem("playerNames")).map((name) => ({
   name: name,
   score: 0,
@@ -22,7 +24,7 @@ let currentPlayerTurn = players[currentPlayerIndex];
 
 // === fetch question data ===
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("../questions/baby-shower.json")
+  fetch(categoryPath)
     .then((res) => res.json())
     .then((data) => populateCategories(data.mainCategories))
     .catch((error) => console.error("JSON fetch error:", error));
@@ -63,7 +65,7 @@ function showQuestion(catNum, price) {
   popUp.classList.add("show-question");
   popUp.querySelector(".price").innerHTML = price;
 
-  fetch("../questions/baby-shower.json")
+  fetch(categoryPath)
     .then((res) => res.json())
     .then((data) => {
       const categoryName = data.mainCategories[catNum].name;
@@ -204,7 +206,7 @@ finalJeopardyBtn.addEventListener("click", finalJeopardy);
 function finalJeopardy() {
   popUp.classList.add("show-question");
 
-  fetch("../questions/baby-shower.json")
+  fetch(categoryPath)
     .then((res) => res.json())
     .then((data) => {
       const question = data.finalJeopardy.question;
