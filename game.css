@@ -301,19 +301,20 @@ button:active {
     justify-content: center;
     width: clamp(200px, 70%, 60rem);
     max-height: 35rem;
-    padding-bottom: 4rem;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 :is(#answer-wrapper, #question-wrapper) p {
+    flex: 1;
+    align-content: center;
     text-wrap: balance;
     line-height: 1.5;
 }
 
 :is(#answer-wrapper, #question-wrapper) button {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    align-self: flex-end;
     display: flex;
     align-items: center;
     gap: .5rem;

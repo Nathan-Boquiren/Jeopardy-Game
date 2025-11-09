@@ -12,7 +12,7 @@ const timeMsg = document.getElementById("time-msg");
 const finalJeopardyBtn = document.getElementById("final-jeopardy-btn");
 
 // === Variables ===
-const categoryPath = "../questions/other-questions.json";
+const categoryPath = "../questions/my-bday-questions.json";
 
 let players = JSON.parse(sessionStorage.getItem("playerNames")).map((name) => ({
   name: name,
