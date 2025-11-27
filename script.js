@@ -1,8 +1,6 @@
 let cl = console.log;
 
 // ========== DOM Elements ==========
-const startPage = document.getElementById("start-page");
-const playerNameContainer = document.getElementById("name-list");
 const addPlayerBtn = document.getElementById("add-player-btn");
 const formModal = document.getElementById("form-modal");
 const playerNameForm = document.getElementById("players-form");
@@ -21,6 +19,10 @@ const finalJeopardyBtn = document.getElementById("final-jeopardy-btn");
 const winnerContainer = document.getElementById("winner-container");
 const endPageHeader = document.getElementById("winner-header");
 
+// =============== CHANGE ACCORDING TO EVENT ================
+const categoryPath = "../questions/my-bday-questions.json";
+// ==========================================================
+
 // ========== Classes ==========
 class Game {
   constructor(categoryPath) {
@@ -35,7 +37,7 @@ class Game {
   initialize() {
     cl("Initializing game...");
     this.currentPlayer = this.players[this.currentPlayerIndex];
-    startPage.classList.add("hidden");
+    document.getElementById("start-page").classList.add("hidden");
 
     this.getQuestions()
       .then((questions) => {
@@ -68,7 +70,7 @@ class Game {
   addPlayer(name) {
     const player = new Player(name);
     this.players.push(player);
-    player.renderNameTag(playerNameContainer);
+    player.renderNameTag(document.getElementById("name-list"));
   }
 
   advancePlayer() {
@@ -269,7 +271,6 @@ class FinalJeopardy {
 }
 
 // ========== Variables ==========
-const categoryPath = "../questions/my-bday-questions.json";
 const game = new Game(categoryPath);
 
 // ========== Start Page ==========
