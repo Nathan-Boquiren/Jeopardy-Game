@@ -1,5 +1,4 @@
 /* Buttons */
-
 button {
     font-weight: 700;
     font-size: clamp(1.5rem, 5vw, 2rem);
@@ -12,7 +11,7 @@ button {
     transition: all 0.2s ease;
 }
 
-button:hover {
+:is(#app, #question-answer) button:hover {
     transform: translateY(-5px);
     background-color: var(--accent-clr-light);
     box-shadow: 0 5px 0 var(--accent-clr-dark);
@@ -20,13 +19,12 @@ button:hover {
     color: var(--theme-dark);
 }
 
-button:active {
+:is(#app, #question-answer) button:active {
     transform: none;
     box-shadow: none;
 }
 
 /* sub section style */
-
 .sub-section {
     box-shadow: inset 1px 1px 2px rgb(255 255 255 /.3),
                 inset -1px -1px 2px rgb(0 0 0 /.2),
@@ -73,7 +71,6 @@ button:active {
     font-weight: 800;
     font-size: clamp(2rem, 7vw, 4rem);
     text-transform: uppercase;
-    view-transition-name: topic;
 }
 
 /* ===== Game Board ===== */
@@ -184,7 +181,7 @@ button:active {
 }
 
 .player-score.highest-score {
-    color: #32cd32;
+    color: hsl(120 61 50);
     font-weight: 700;
 }
 
@@ -198,7 +195,7 @@ button:active {
 .player-container .delete-player {
     font-size: 1.7rem;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: hsl(0 0 100 / .5);
     cursor: pointer;
     transition: all 0.2s ease;
 
@@ -210,10 +207,10 @@ button:active {
 .final-answer-status {
     position: absolute;
     inset: -.3rem -.5rem;
-    background-color: rgb(0 0 0 / .4);
+    background-color: hsl(0 0 0 / .4);
     backdrop-filter: blur(10px);
     border-radius: 1rem;
-    border: 2px solid rgb(255 255 255 /.3);
+    border: 2px solid hsl(0 0 100 / .3);
     display: flex;
     align-items: center;
     justify-content: center;

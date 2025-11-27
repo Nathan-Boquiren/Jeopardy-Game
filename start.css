@@ -1,5 +1,7 @@
-body {
-    background-image: radial-gradient(var(--theme-dark), var(--theme-light));
+body { background-image: radial-gradient(var(--theme-dark), var(--theme-light)) }
+
+#start-page {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,12 +17,10 @@ body {
     font-size: clamp(2.5rem, 10vw, 6rem);
     color: var(--accent-clr-light);
     text-transform: uppercase;
-    view-transition-name: topic;
 }
 
 
 /* Player Name Container */
-
 .player-name-container {
     margin-block: auto;
     width: clamp(19rem, 50%, 40rem);
@@ -44,9 +44,9 @@ body {
     gap: 1rem;
     border-radius: 1rem;
     box-shadow: inset 1px 1px 5px rgb(0 0 0 / .5);
+    padding: 1rem;
+    min-height: 6rem;
 }
-
-.player-name-container #name-list:has(*) {padding: 1rem}
 
 .player-name-container #name-list li {
     list-style: none;
@@ -129,7 +129,6 @@ body {
     border-radius: .5rem;
     margin-block: 1rem;
     transition: background-color 0.2s ease;
-    
     &:focus {outline: none; background-color: rgb(255 255 255 / .1);}
 }
 
@@ -143,7 +142,6 @@ body {
     font-size: 1.8rem;
     font-weight: 600;
     cursor: pointer;
-
     &:hover {animation: bounce 0.3s ease forwards}
 }
 

@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded');
 
-@view-transition {navigation: auto}
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -29,3 +27,7 @@ body {
 
 .txt-shadow {text-shadow: 2px 2px 3px rgb(0 0 0 / .2)}
 
+/* NEW STUFF */
+
+body:not(:has(#start-page.hidden)) > *:not(#start-page) {display: none}
+#start-page.hidden {display: none}

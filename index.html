@@ -6,31 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="start.css">
-    <script src="players.js" defer></script>
-    <script src="getNames.js" defer></script>
+    <link rel="stylesheet" href="game.css">
+    <script src="script.js" defer></script>
     <title>Jeopardy Game</title>
 </head>
 
 <body>
-    <img class="jeopardy-logo" src="jeopardy-logo.png" alt="jeopardy logo">
-    <h2 class="topic-name accent-font">Me. . .</h2>
+    <!-- Start Page -->
+    <div id="start-page">
+        <img class="jeopardy-logo" src="jeopardy-logo.png" alt="jeopardy logo">
+        <h2 class="topic-name accent-font">Me. . .</h2>
 
-    <div class="player-name-container">
-        <h3>Players</h3>
-        <ul id="name-list"></ul>
-        <span id="add-player-btn" class="material-symbols-rounded" tabindex="0">add_circle</span>
+        <div class="player-name-container">
+            <h3>Players</h3>
+            <ul id="name-list"></ul>
+            <span id="add-player-btn" class="material-symbols-rounded" tabindex="0">add_circle</span>
+        </div>
+
+        <dialog id="form-modal">
+            <form id="players-form" method="post">
+                <button id="close-btn" class="close-btn" type="button">close</button>
+                <label class="accent-font">Enter Yo Name</label>
+                <input type="text" id="player-name" autofocus autocomplete="off">
+                <button class="accent-font close-btn" id="submit-btn" type="submit">arrow_forward</button>
+            </form>
+        </dialog>
+
+        <button id="start-btn">Start Game</button>
     </div>
 
-    <dialog id="form-modal">
-        <form id="players-form" method="post">
-            <button id="close-btn" type="button">close</button>
-            <label for="player-name" class="accent-font">Enter Yo Name</label>
-            <input type="text" name="player-name" id="player-name" autofocus autocomplete="off">
-            <button class="accent-font" id="submit-btn" type="submit">arrow_forward</button>
-        </form>
-    </dialog>
+    <!-- Main Game page -->
+    <main id="app">
+        <div id="header">
+            <h2 class="txt-shadow accent-font">Me. . .</h2>
+            <button id="final-jeopardy-btn">Final Jeopardy</button>
+        </div>
 
-    <button id="start-btn">Start Game</button>
+        <div id="game-board"></div>
+
+        <aside id="contestent-points">
+            <div id="current-player" class="sub-section">
+                <p>Current Player:</p>
+                <div id="current-p-wrapper"></div>
+            </div>
+
+            <div id="players-container"></div>
+        </aside>
+    </main>
+
+    <!-- Question/Answer -->
+    <section id="question-answer">
+        <div id="question-header">
+            <h2 id="q-category" class="accent-font category"></h2>
+            <span class="line"></span>
+            <h2 id="q-difficulty" class="price"></h2>
+            <span class="line"></span>
+            <div id="timer-wrapper">
+                <div id="timer-bar"></div>
+            </div>
+        </div>
+
+        <div id="question-wrapper">
+            <p id="question-txt"></p>
+            <button id="show-answer-btn">See Answer</button>
+        </div>
+        <div id="answer-wrapper">
+            <p id="answer-txt"></p>
+            <button id="return-btn">Game Board</button>
+        </div>
+
+        <div class="sub-section" id="time-msg">
+            <h2 class="accent-font">Time out</h2>
+        </div>
+    </section>
+
+    <!-- End Page -->
+    <section id="end-screen">
+        <h2 id="winner-header"></h2>
+        <div id="winner-container"></div>
+    </section>
 </body>
 
 </html>
