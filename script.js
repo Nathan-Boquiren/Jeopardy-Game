@@ -7,6 +7,7 @@ const playerNameForm = document.getElementById("players-form");
 const nameInput = playerNameForm.querySelector("input");
 const closeBtns = document.querySelectorAll(".close-btn");
 const startBtn = document.getElementById("start-btn");
+const topicNameWrappers = document.querySelectorAll(".topic-name");
 const categoriesContainer = document.getElementById("game-board");
 const popUp = document.getElementById("question-answer");
 const questionWrapper = document.getElementById("question-wrapper");
@@ -20,7 +21,7 @@ const winnerContainer = document.getElementById("winner-container");
 const endPageHeader = document.getElementById("winner-header");
 
 // =============== CHANGE ACCORDING TO EVENT ================
-const categoryPath = "../questions/my-bday-questions.json";
+const categoryPath = "../questions/thanksgiving-questions.json";
 // ==========================================================
 
 // ========== Classes ==========
@@ -32,20 +33,25 @@ class Game {
     this.currentPlayerIndex = 0;
     this.currentPlayer = null;
     this.currentPrice = 0;
+    this.topicName = "";
+  }
+
+  buildQuestions() {
+    this.getQuestions()
+      .then((questions) => {
+        this.questions = questions;
+        this.topicName = this.questions.topicName;
+        topicNameWrappers.forEach((wpr) => (wpr.innerText = this.topicName));
+      })
+      .catch((err) => console.error("Failed to load questions:", err));
   }
 
   initialize() {
     cl("Initializing game...");
     this.currentPlayer = this.players[this.currentPlayerIndex];
     document.getElementById("start-page").classList.add("hidden");
-
-    this.getQuestions()
-      .then((questions) => {
-        this.questions = questions;
-        this.renderBoard();
-        cl("Game initialized successfully");
-      })
-      .catch((err) => console.error("Failed to load questions:", err));
+    this.renderBoard();
+    cl("Game initialized successfully");
   }
 
   renderBoard() {
@@ -58,11 +64,11 @@ class Game {
     return fetch(this.categoryPath)
       .then((res) => res.json())
       .then((data) => {
-        const questions = {};
-        questions.mainCategories = data.mainCategories.map((category) => new Category(category));
-        questions.finalJeopardy = new FinalJeopardy(data.finalJeopardy.question, data.finalJeopardy.answer);
-
-        return questions;
+        return {
+          topicName: data.topicName,
+          mainCategories: data.mainCategories.map((category) => new Category(category)),
+          finalJeopardy: new FinalJeopardy(data.finalJeopardy.question, data.finalJeopardy.answer),
+        };
       })
       .catch((error) => console.error("JSON fetch error:", error));
   }
@@ -272,6 +278,7 @@ class FinalJeopardy {
 
 // ========== Variables ==========
 const game = new Game(categoryPath);
+game.buildQuestions();
 
 // ========== Start Page ==========
 {
